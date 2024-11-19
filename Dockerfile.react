@@ -1,0 +1,10 @@
+FROM node:lts AS create-template
+
+WORKDIR /app
+CMD [ "npx", "create-next-app@latest" ]
+
+FROM node:lts AS build
+WORKDIR /app
+COPY --from=create-template /app /app
+RUN npm install
+RUN npm run build
